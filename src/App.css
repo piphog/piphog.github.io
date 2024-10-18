@@ -1,0 +1,345 @@
+:root {
+  --navy: #0a192f;
+  --light-navy: #112240;
+  --lightest-navy: #233554;
+  --slate: #8892b0;
+  --light-slate: #a8b2d1;
+  --lightest-slate: #ccd6f6;
+  --white: #e6f1ff;
+  --green: #64ffda;
+}
+
+body {
+  background-color: var(--light-navy) !important;
+}
+
+/* Header */
+
+header .navbar {
+  border-bottom: 1px solid var(--lightest-navy);
+  background-color: var(--navy);
+}
+
+/* HeroSection.css */
+
+.hero-section {
+  min-height: 100vh; /* Full screen height */
+  padding: 40px 0;
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+  background-color: var(--navy);
+}
+
+.developer-img {
+  max-width: 70%;
+  border-radius: 10px;
+}
+
+
+/* About CSS */
+
+.about-us {
+  margin: 7rem auto;
+}
+
+.about-us .content {
+  max-width: 650px;
+}
+
+.about-us .content > p {
+  padding-bottom: 2rem;
+  font-size: 18px;
+  border-bottom: 1px solid var(--lightest-navy);
+}
+
+/* Experience.css */
+
+/* Experience Section Container */
+.experience-section {
+  background: var(--navy); /* Light background for contrast */
+  padding: 50px 15px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Title */
+.section-title {
+  color: #333;
+  margin-bottom: 40px;
+}
+
+/* Experience Item Styling */
+.experience-item {
+  background: var(--light-navy); /* White background for contrast */
+  border-left: 4px solid var(--green); /* Left border to highlight the experience */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Experience Item Hover Effect */
+.experience-item:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Add shadow on hover */
+}
+
+/* Job Title Styling */
+.job-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Company Name Styling */
+.company-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Job Duration Styling */
+.job-duration {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Job Responsibilities Styling */
+.job-responsibilities {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.job-responsibilities li {
+  margin-bottom: 10px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .experience-section {
+    text-align: center;
+  }
+
+  .experience-item {
+    text-align: left;
+  }
+}
+
+
+
+
+/* Events.css */
+
+/* Events Section Container */
+.events-section {
+  margin-top: 7rem;
+  margin-bottom: 7rem;
+  border-radius: 10px;
+
+}
+
+/* Section Title */
+.section-title {
+  color: #333;
+  margin-bottom: 40px;
+}
+
+/* Event Card Styling */
+.event-card {
+  background: var(--navy) !important;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Event Card Hover Effect */
+.event-card:hover {
+  transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* Event Image Styling */
+.event-image {
+  height: 250px; /* Fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the space without distortion */
+  border-bottom: 4px solid var(--green); /* Blue border below the image */
+}
+
+/* Event Title Styling */
+.event-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Event Date Styling */
+.event-date {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #888;
+}
+
+/* Event Description Styling */
+.event-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .events-section {
+    text-align: center;
+  }
+
+  .event-card {
+    text-align: left;
+  }
+
+  .event-image {
+    height: 200px; /* Reduce image height for smaller devices */
+  }
+}
+
+
+.projects-section .project-card{
+  background-color: var(--navy) !important;
+}
+
+.projects-section .project-image {
+  height: 300px !important;
+  object-fit: cover;
+}
+
+
+.contact-section {
+  /* background-color: var(--navy);  */
+  border-radius: 10px; /* Rounded corners */
+  padding: 40px; /* Padding for spacing */
+  margin: 7rem auto;
+}
+
+.contact-section input,
+.contact-section textarea {
+  background: var(--navy) !important;
+  background-color: var(--navy) !important;
+}
+
+.contact-form .form-control {
+  border: 1px solid var(--green); /* Primary border color */
+  transition: border-color 0.3s;
+}
+
+.contact-form .form-control:focus {
+  border-color: var(--green); /* Darker shade on focus */
+  box-shadow: none; /* Remove default shadow */
+}
+
+.contact-form .btn {
+  background-color: var(--green); /* Primary button color */
+  border: none; /* Remove border */
+}
+
+.contact-form .btn:hover {
+  background-color: var(--green); /* Darker shade on hover */
+}
+
+
+.footer-section {
+  background-color: var(--navy); /* Dark background */
+}
+
+.footer-section .social-links a {
+  color: #ffffff; /* White icons */
+  transition: color 0.3s;
+}
+
+.footer-section .social-links a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+
+/* Utilities Classes */
+
+.txt-white {
+  color: var(--white) !important;
+}
+
+.primary-btn {
+  width: 150px;
+  background-color: var(--green) !important;
+}
+
+.primary-btn-outline {
+  width: 190px;
+  color: var(--green) !important;
+  border: 2px solid var(--green) !important;
+}
+
+.primary-btn-outline:hover {
+  color: var(--navy) !important;
+  background-color: var(--green) !important;
+}
+
+.text-grn {
+  color: var(--green);
+}
+
+
+.swiper-button-prev,
+.swiper-button-next {
+  font-size: 10px !important;
+  color: var(--green, var(--green));
+}
+
+
+.swiper-pagination .swiper-pagination-bullet{
+  border: 2px solid var(--green) !important;
+  background-color: var(--green) !important;
+}
+
+
+
+/* Mobile Responsive */
+
+
+@media (max-width: 768px) {
+
+  .hero-section {
+    text-align: center;
+  }
+
+  .developer-img {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .hero-section .btn {
+    width: 220px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .about-us {
+    padding-right: 0 !important;
+  }
+  .about-us .content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .about-us .row {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .about-us .col-lg-8  {
+    justify-content: center !important;
+  }
+
+  footer .container {
+    flex-direction: column-reverse;
+  }
+
+  footer .designer-info {
+    margin-bottom: 1rem;
+  }
+}
