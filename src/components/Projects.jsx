@@ -12,7 +12,7 @@ const Projects = () => {
       year: "2023",
       title: "RxPotes",
       description:
-        "Started a social media project with the purpose of using creative strategies to get a million views on one video. On our 10th video we reached 140 million views",
+        "Started a social media project with the purpose of using creative strategies to get a million views on one video. Our 10th video we reached 140 million views.",
       image: "/images/rxpotes.jpg",
       tech: ["TikTok", "Social Media Strategy", "Content Creation"],
       links: {
@@ -23,9 +23,9 @@ const Projects = () => {
       year: "2024",
       title: "WorkforceIQ.ai",
       description:
-        "Currently developing a robust AI service using FastAPI and React for front and back end development.",
+        "Currently developing a robust AI Saas.",
       image: "/images/workforceiq.jpg",
-      tech: ["React", "FastAPI", "AI", "Python"],
+      tech: ["React", "Multi-LLM Agents", "Python"],
       links: {
         github: "#",
         external: "#",
