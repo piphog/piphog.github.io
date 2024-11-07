@@ -12,7 +12,7 @@ const Projects = () => {
       year: "2023",
       title: "RxPotes",
       description:
-        "Started a social media project with the purpose of using creative strategies to get a million views on one video.",
+        "Started a social media project with the purpose of using creative strategies to get a million views on one video. On our 10th video we reached 140 million views",
       image: "/images/rxpotes.jpg",
       tech: ["TikTok", "Social Media Strategy", "Content Creation"],
       links: {
