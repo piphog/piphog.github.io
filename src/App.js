@@ -1,40 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Services from './components/Services';
+import FeaturedWork from './components/FeaturedWork';
+import EngineeringPatterns from './components/EngineeringPatterns';
+import ProjectsSection from './components/Projects';
 import About from './components/About';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
+import Contact from './components/Contact';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('about');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['about', 'experience', 'projects'];
-      const scrollPosition = window.scrollY;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section.offsetTop <= scrollPosition + 200) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <div className="App">
-      <Sidebar activeSection={activeSection} />
-      <main className="content">
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <Services />
+        <FeaturedWork />
+        <EngineeringPatterns />
+        <ProjectsSection />
         <About />
-        <Experience />
-        <Projects />
+        <Contact />
       </main>
-    </div>
+    </>
   );
 }
 
