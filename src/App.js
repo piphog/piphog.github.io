@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import NetworkBackground from './components/NetworkBackground';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -12,8 +13,9 @@ import Contact from './components/Contact';
 function App() {
   return (
     <>
+      <NetworkBackground />
       <Navbar />
-      <main>
+      <main style={{ position: 'relative', zIndex: 1 }}>
         <Hero />
         <Services />
         <FeaturedWork />

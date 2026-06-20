@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import NetworkBackground from './NetworkBackground';
 
-const CYCLING_WORDS = ['Science', 'Biotech', 'Research', 'Business', 'Medicine'];
+const CYCLING_WORDS = ['teams.', 'operators.', 'founders.', 'scientists.', 'businesses.'];
 
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
@@ -14,11 +13,11 @@ export default function Hero() {
     let timeout;
 
     if (!deleting && displayed.length < word.length) {
-      timeout = setTimeout(() => setDisplayed(word.slice(0, displayed.length + 1)), 80);
+      timeout = setTimeout(() => setDisplayed(word.slice(0, displayed.length + 1)), 75);
     } else if (!deleting && displayed.length === word.length) {
-      timeout = setTimeout(() => setDeleting(true), 2000);
+      timeout = setTimeout(() => setDeleting(true), 1800);
     } else if (deleting && displayed.length > 0) {
-      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 45);
+      timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 40);
     } else if (deleting && displayed.length === 0) {
       setDeleting(false);
       setWordIndex((i) => (i + 1) % CYCLING_WORDS.length);
@@ -40,157 +39,121 @@ export default function Hero() {
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
-        overflow: 'hidden',
-        background: 'var(--bg-base)',
+        background: 'transparent',
       }}
     >
-      {/* Grid texture */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: `
-          linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px',
-        pointerEvents: 'none',
-      }} />
-
-      {/* Animated node/circuit network */}
-      <NetworkBackground />
-
-      {/* Ambient glow blobs */}
-      <div style={{
-        position: 'absolute',
-        top: '10%',
-        right: '-10%',
-        width: '600px',
-        height: '600px',
-        background: 'radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: '5%',
-        left: '-5%',
-        width: '500px',
-        height: '500px',
-        background: 'radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: '120px', paddingBottom: '80px' }}>
-
-        {/* Status badge */}
+      <div
+        className="container"
+        style={{ position: 'relative', paddingTop: '140px', paddingBottom: '120px', width: '100%' }}
+      >
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
-            padding: '6px 14px',
-            background: 'rgba(0,230,118,0.08)',
-            border: '1px solid rgba(0,230,118,0.2)',
-            borderRadius: '99px',
-            marginBottom: '28px',
+            gap: '10px',
+            padding: '7px 14px 7px 12px',
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border)',
+            borderRadius: '999px',
+            marginBottom: '40px',
           }}
         >
           <span style={{
-            width: '7px',
-            height: '7px',
+            position: 'relative',
+            width: '8px',
+            height: '8px',
             borderRadius: '50%',
-            background: 'var(--accent-green)',
-            boxShadow: '0 0 8px var(--accent-green)',
-            animation: 'pulse-green 2s infinite',
-          }} />
+            background: 'var(--accent)',
+          }}>
+            <span style={{
+              position: 'absolute',
+              inset: '-4px',
+              borderRadius: '50%',
+              background: 'var(--accent)',
+              opacity: 0.35,
+              animation: 'pulse-ring 2.4s ease-out infinite',
+            }} />
+          </span>
           <span style={{
             fontFamily: 'var(--font-mono)',
             fontSize: '11px',
-            color: 'var(--accent-green)',
-            letterSpacing: '0.1em',
+            color: 'var(--ink-soft)',
+            letterSpacing: '0.12em',
             textTransform: 'uppercase',
+            fontWeight: 500,
           }}>
-            Available for new clients — Raleigh-Durham & Remote
+            Accepting new engagements — Raleigh-Durham & Remote
           </span>
         </motion.div>
 
-        {/* Wordmark */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          style={{ marginBottom: '8px' }}
-        >
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
-            letterSpacing: '0.3em',
-            color: 'var(--accent-amber)',
-            textTransform: 'uppercase',
-          }}>
-            CYCLONA LLC
-          </span>
-        </motion.div>
-
-        {/* Main headline */}
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
+          transition={{ delay: 0.18, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(42px, 7vw, 80px)',
-            fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: '-0.02em',
-            marginBottom: '12px',
-            maxWidth: '820px',
+            fontSize: 'clamp(48px, 8.5vw, 124px)',
+            fontWeight: 400,
+            lineHeight: 0.98,
+            letterSpacing: '-0.025em',
+            color: 'var(--ink)',
+            maxWidth: '1100px',
+            marginBottom: '32px',
           }}
         >
-          AI Automation
+          Production AI &amp;{' '}
+          <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+            software infrastructure
+          </em>
           <br />
-          Infrastructure for
-          <br />
-          <span style={{ color: 'var(--accent-cyan)', position: 'relative' }}>
-            {displayed}
-            <span style={{
-              display: 'inline-block',
-              width: '3px',
-              height: '0.85em',
-              background: 'var(--accent-amber)',
-              marginLeft: '4px',
-              verticalAlign: 'middle',
-              animation: 'blink 0.9s step-end infinite',
-            }} />
+          built for ambitious{' '}
+          <span style={{ display: 'inline-block', minWidth: '6ch' }}>
+            <span style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+              {displayed}
+            </span>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '4px',
+                height: '0.75em',
+                background: 'var(--accent)',
+                marginLeft: '2px',
+                marginBottom: '-0.06em',
+                verticalAlign: 'middle',
+                animation: 'blink 0.9s step-end infinite',
+              }}
+            />
           </span>
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45, duration: 0.6 }}
+          transition={{ delay: 0.32, duration: 0.7 }}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(15px, 2vw, 18px)',
+            fontSize: 'clamp(17px, 1.6vw, 21px)',
+            fontWeight: 400,
             color: 'var(--text-secondary)',
-            maxWidth: '560px',
-            lineHeight: 1.7,
-            marginBottom: '48px',
+            maxWidth: '660px',
+            lineHeight: 1.55,
+            marginBottom: '56px',
           }}
         >
-          Raleigh-Durham, NC — Building production-grade AI systems that
-          compress days of manual work into minutes.
+          Cyclona LLC is a one-person studio designing and shipping
+          production-grade AI dashboards, internal tools, document and finance
+          automations, and data pipelines — for the teams who actually do the
+          work, in any industry.
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-          style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', alignItems: 'center' }}
+          transition={{ delay: 0.45, duration: 0.6 }}
+          style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}
         >
           <a
             href="#work"
@@ -198,32 +161,32 @@ export default function Hero() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
-              padding: '14px 32px',
-              background: 'var(--accent-amber)',
+              gap: '10px',
+              padding: '15px 30px',
+              background: 'var(--ink)',
               color: 'var(--bg-base)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '13px',
-              fontWeight: 700,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              borderRadius: 'var(--radius)',
-              transition: 'all 0.2s',
+              fontFamily: 'var(--font-body)',
+              fontSize: '14px',
+              fontWeight: 500,
+              letterSpacing: '0.01em',
+              borderRadius: '999px',
+              transition: 'all 0.25s ease',
+              border: '1px solid var(--ink)',
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = '#ffc140';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(245,166,35,0.35)';
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--accent)';
+              e.currentTarget.style.borderColor = 'var(--accent)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
             }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = 'var(--accent-amber)';
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'var(--ink)';
+              e.currentTarget.style.borderColor = 'var(--ink)';
               e.currentTarget.style.transform = 'none';
-              e.currentTarget.style.boxShadow = 'none';
             }}
           >
-            See the Work
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
+            See the work
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </a>
           <a
@@ -233,112 +196,58 @@ export default function Hero() {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '8px',
-              padding: '13px 32px',
+              gap: '10px',
+              padding: '15px 30px',
               background: 'transparent',
-              color: 'var(--text-primary)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '13px',
+              color: 'var(--ink)',
+              fontFamily: 'var(--font-body)',
+              fontSize: '14px',
               fontWeight: 500,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              border: '1px solid rgba(255,255,255,0.18)',
-              borderRadius: 'var(--radius)',
-              transition: 'all 0.2s',
+              letterSpacing: '0.01em',
+              border: '1px solid var(--border-strong)',
+              borderRadius: '999px',
+              transition: 'all 0.25s ease',
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--accent-cyan)';
-              e.currentTarget.style.color = 'var(--accent-cyan)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,212,255,0.12)';
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'var(--ink)';
+              e.currentTarget.style.background = 'rgba(28,25,22,0.04)';
             }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)';
-              e.currentTarget.style.color = 'var(--text-primary)';
-              e.currentTarget.style.transform = 'none';
-              e.currentTarget.style.boxShadow = 'none';
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'var(--border-strong)';
+              e.currentTarget.style.background = 'transparent';
             }}
           >
-            Book a Call
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-              <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8" y1="2" x2="8" y2="6"/>
-              <line x1="3" y1="10" x2="21" y2="10"/>
-            </svg>
+            Book an intro call
           </a>
-        </motion.div>
-
-        {/* Bottom stat bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-          style={{
-            display: 'flex',
-            gap: '40px',
-            marginTop: '80px',
-            paddingTop: '32px',
-            borderTop: '1px solid rgba(255,255,255,0.06)',
-            flexWrap: 'wrap',
-          }}
-        >
-          {[
-            { value: '250K+',  label: 'Compounds clustered per run' },
-            { value: '99.35%', label: 'Contract auto-extraction rate' },
-            { value: '86.7%',  label: 'Live trading win rate' },
-            { value: '5',      label: 'Enterprise modules shipped' },
-          ].map(({ value, label }) => (
-            <div key={label}>
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '22px',
-                fontWeight: 600,
-                color: 'var(--accent-amber)',
-                letterSpacing: '-0.01em',
-                lineHeight: 1,
-                marginBottom: '6px',
-              }}>{value}</div>
-              <div style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '12px',
-                color: 'var(--text-muted)',
-                letterSpacing: '0.02em',
-              }}>{label}</div>
-            </div>
-          ))}
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 1.2 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.8 }}
         style={{
           position: 'absolute',
+          left: 0,
+          right: 0,
           bottom: '32px',
-          left: '50%',
-          transform: 'translateX(-50%)',
           display: 'flex',
-          flexDirection: 'column',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '6px',
-        }}
-      >
-        <span style={{
+          padding: '0 40px',
           fontFamily: 'var(--font-mono)',
-          fontSize: '10px',
+          fontSize: '11px',
           letterSpacing: '0.15em',
-          color: 'var(--text-muted)',
           textTransform: 'uppercase',
-        }}>Scroll</span>
-        <div style={{
-          width: '1px',
-          height: '40px',
-          background: 'linear-gradient(to bottom, rgba(0,212,255,0.6), transparent)',
-          animation: 'scroll-line 2s ease-in-out infinite',
-        }} />
+          color: 'var(--text-muted)',
+        }}
+        className="hero-bottom-bar"
+      >
+        <span>Cyclona LLC — Est. 2025</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <span style={{ width: '24px', height: '1px', background: 'currentColor' }} />
+          Scroll
+        </span>
       </motion.div>
 
       <style>{`
@@ -346,15 +255,12 @@ export default function Hero() {
           0%, 100% { opacity: 1; }
           50% { opacity: 0; }
         }
-        @keyframes pulse-green {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.6; transform: scale(1.3); }
+        @keyframes pulse-ring {
+          0% { opacity: 0.45; transform: scale(0.6); }
+          80%, 100% { opacity: 0; transform: scale(2.4); }
         }
-        @keyframes scroll-line {
-          0% { transform: scaleY(0); transform-origin: top; }
-          50% { transform: scaleY(1); transform-origin: top; }
-          50.01% { transform: scaleY(1); transform-origin: bottom; }
-          100% { transform: scaleY(0); transform-origin: bottom; }
+        @media (max-width: 600px) {
+          .hero-bottom-bar { padding: 0 22px !important; font-size: 10px !important; }
         }
       `}</style>
     </section>

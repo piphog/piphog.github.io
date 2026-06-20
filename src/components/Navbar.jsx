@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { label: 'Work',    href: '#work'    },
-  { label: 'About',   href: '#about'   },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Services', href: '#services' },
+  { label: 'Work',     href: '#work' },
+  { label: 'Methods',  href: '#engineering' },
+  { label: 'About',    href: '#about' },
 ];
 
 export default function Navbar() {
@@ -26,69 +27,77 @@ export default function Navbar() {
 
   return (
     <>
-      <nav style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        transition: 'background 0.3s ease, border-color 0.3s ease',
-        background: scrolled ? 'rgba(6,10,20,0.92)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
-      }}>
-        <div className="container" style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: '64px',
-        }}>
-          {/* Wordmark */}
-          <a href="#top" onClick={(e) => handleNav(e, 'body')} style={{
+      <nav
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          transition: 'background 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease',
+          background: scrolled ? 'rgba(244, 237, 224, 0.85)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
+          borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
+        }}
+      >
+        <div
+          className="container"
+          style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-          }}>
-            <span style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '20px',
-              fontWeight: 800,
-              letterSpacing: '0.12em',
-              color: 'var(--text-primary)',
-              textTransform: 'uppercase',
-            }}>
-              CYCLONA
+            justifyContent: 'space-between',
+            height: '68px',
+          }}
+        >
+          <a
+            href="#top"
+            onClick={(e) => handleNav(e, '#top')}
+            style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}
+          >
+            <span
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '24px',
+                fontWeight: 400,
+                letterSpacing: '-0.01em',
+                color: 'var(--ink)',
+              }}
+            >
+              Cyclona
             </span>
-            <span style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '10px',
-              color: 'var(--text-muted)',
-              letterSpacing: '0.1em',
-              marginTop: '2px',
-            }}>LLC</span>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '10px',
+                color: 'var(--text-muted)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+              }}
+            >
+              LLC
+            </span>
           </a>
 
-          {/* Desktop nav */}
-          <ul style={{
-            display: 'flex',
-            gap: '40px',
-            alignItems: 'center',
-          }} className="nav-desktop">
+          <ul
+            style={{ display: 'flex', gap: '36px', alignItems: 'center' }}
+            className="nav-desktop"
+          >
             {navLinks.map(({ label, href }) => (
               <li key={href}>
                 <a
                   href={href}
                   onClick={(e) => handleNav(e, href)}
                   style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '12px',
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px',
+                    fontWeight: 400,
                     color: 'var(--text-secondary)',
                     transition: 'color 0.2s',
+                    position: 'relative',
                   }}
-                  onMouseEnter={e => e.target.style.color = 'var(--accent-cyan)'}
-                  onMouseLeave={e => e.target.style.color = 'var(--text-secondary)'}
+                  onMouseEnter={(e) => (e.target.style.color = 'var(--ink)')}
+                  onMouseLeave={(e) => (e.target.style.color = 'var(--text-secondary)')}
                 >
                   {label}
                 </a>
@@ -100,26 +109,36 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '12px',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '13px',
+                  fontWeight: 500,
                   color: 'var(--bg-base)',
-                  background: 'var(--accent-amber)',
-                  padding: '8px 18px',
-                  borderRadius: 'var(--radius)',
-                  fontWeight: 600,
-                  transition: 'all 0.2s',
+                  background: 'var(--ink)',
+                  padding: '10px 22px',
+                  borderRadius: '999px',
+                  transition: 'all 0.25s',
+                  border: '1px solid var(--ink)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
                 }}
-                onMouseEnter={e => { e.target.style.background = '#ffc140'; e.target.style.transform = 'translateY(-1px)'; }}
-                onMouseLeave={e => { e.target.style.background = 'var(--accent-amber)'; e.target.style.transform = 'none'; }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--accent)';
+                  e.currentTarget.style.borderColor = 'var(--accent)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'var(--ink)';
+                  e.currentTarget.style.borderColor = 'var(--ink)';
+                }}
               >
-                Book a Call
+                Book a call
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H8M17 7v9" />
+                </svg>
               </a>
             </li>
           </ul>
 
-          {/* Hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Menu"
@@ -131,53 +150,61 @@ export default function Navbar() {
               padding: '8px',
             }}
           >
-            {[0,1,2].map(i => (
-              <span key={i} style={{
-                display: 'block',
-                width: '22px',
-                height: '2px',
-                background: menuOpen && i === 1 ? 'transparent' : 'var(--text-primary)',
-                transition: '0.25s',
-                transform: menuOpen
-                  ? i === 0 ? 'translateY(7px) rotate(45deg)'
-                  : i === 2 ? 'translateY(-7px) rotate(-45deg)'
-                  : 'none'
-                  : 'none',
-              }} />
+            {[0, 1, 2].map((i) => (
+              <span
+                key={i}
+                style={{
+                  display: 'block',
+                  width: '22px',
+                  height: '1.5px',
+                  background: menuOpen && i === 1 ? 'transparent' : 'var(--ink)',
+                  transition: '0.25s',
+                  transform: menuOpen
+                    ? i === 0
+                      ? 'translateY(6.5px) rotate(45deg)'
+                      : i === 2
+                      ? 'translateY(-6.5px) rotate(-45deg)'
+                      : 'none'
+                    : 'none',
+                }}
+              />
             ))}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -16 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.2 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.22 }}
             style={{
               position: 'fixed',
-              top: '64px',
+              top: '68px',
               left: 0,
               right: 0,
               zIndex: 999,
-              background: 'rgba(6,10,20,0.97)',
+              background: 'rgba(244, 237, 224, 0.97)',
               backdropFilter: 'blur(16px)',
-              borderBottom: '1px solid rgba(255,255,255,0.06)',
-              padding: '24px 20px 32px',
+              borderBottom: '1px solid var(--border)',
+              padding: '28px 22px 32px',
             }}
           >
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
               {navLinks.map(({ label, href }) => (
                 <li key={href}>
-                  <a href={href} onClick={(e) => handleNav(e, href)} style={{
-                    fontFamily: 'var(--font-display)',
-                    fontSize: '22px',
-                    fontWeight: 700,
-                    color: 'var(--text-primary)',
-                  }}>
+                  <a
+                    href={href}
+                    onClick={(e) => handleNav(e, href)}
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: '28px',
+                      fontWeight: 400,
+                      color: 'var(--ink)',
+                    }}
+                  >
                     {label}
                   </a>
                 </li>
@@ -189,18 +216,16 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   style={{
                     display: 'inline-block',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '13px',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px',
                     color: 'var(--bg-base)',
-                    background: 'var(--accent-amber)',
-                    padding: '12px 24px',
-                    borderRadius: 'var(--radius)',
-                    fontWeight: 600,
+                    background: 'var(--ink)',
+                    padding: '13px 26px',
+                    borderRadius: '999px',
+                    fontWeight: 500,
                   }}
                 >
-                  Book a Call
+                  Book a call →
                 </a>
               </li>
             </ul>
@@ -209,7 +234,7 @@ export default function Navbar() {
       </AnimatePresence>
 
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
           .nav-desktop { display: none !important; }
           .hamburger { display: flex !important; }
         }

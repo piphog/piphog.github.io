@@ -3,49 +3,46 @@ import { motion } from 'framer-motion';
 
 const services = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
-      </svg>
-    ),
-    title: 'Scientific Data Pipelines',
-    desc: 'Compound screening, hit triage, assay data aggregation — automated end to end.',
-    accent: 'var(--accent-cyan)',
+    num: '01',
+    title: 'Internal Tools & Operational Dashboards',
+    desc:
+      "Modern, intuitive operational interfaces wired to your preferred AI API, single sign-on, and real-time data. Built for the people who actually use them — every day, all day — not just the demo.",
+    points: ['Claude / OpenAI / any model', 'Entra ID / Okta / Auth0 SSO', 'Live data, role-based access'],
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 8v4l3 3"/>
-        <path d="M3.05 11a9 9 0 0 1 .95-3.5M3.05 13a9 9 0 0 0 .95 3.5"/>
-        <path d="M20.95 11a9 9 0 0 0-.95-3.5M20.95 13a9 9 0 0 1-.95 3.5"/>
-      </svg>
-    ),
-    title: 'BD & Outreach Automation',
-    desc: 'AI-powered contact discovery, draft routing, and CRM pipeline tools.',
-    accent: 'var(--accent-amber)',
+    num: '02',
+    title: 'AI Document & Contract Automation',
+    desc:
+      'Upload PDFs, DOCX, Excel, or scans. Structured fields come out the other end — counterparties, terms, line items, red flags — fuzzy-matched against your existing systems and routed where they need to go.',
+    points: ['PDF / DOCX / OCR pipelines', 'Schema-validated AI extraction', 'CRM, Drive & SharePoint routing'],
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2"/>
-        <path d="M8 21h8M12 17v4"/>
-        <path d="M7 8h2M7 11h2M11 8h6M11 11h6"/>
-      </svg>
-    ),
-    title: 'Internal AI Dashboards',
-    desc: 'Bloomberg-style operational interfaces with Claude API integration, SSO, and real-time data.',
-    accent: 'var(--accent-cyan)',
+    num: '03',
+    title: 'Workflow & Outreach Automation',
+    desc:
+      'AI-assisted prospecting, contact discovery, tone-matched drafting, and CRM pipeline tools. Multi-step agents that pause for human approval before anything reaches a customer.',
+    points: ['Tone-trained email drafting', 'CRM enrichment & routing', 'Human-in-the-loop agents'],
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-      </svg>
-    ),
-    title: 'Financial & Reporting Automation',
-    desc: 'Automated financial summaries, milestone tracking, and export-ready reporting.',
-    accent: 'var(--accent-amber)',
+    num: '04',
+    title: 'Data Pipelines & Reporting',
+    desc:
+      "Operational, scientific, or financial — recurring reports stop being someone's Monday morning. Automated aggregation, dedup, QC, and delivery into PowerPoint, Excel, PDF, or a live dashboard.",
+    points: ['Recurring report generation', 'Excel / PPTX / PDF output', 'Built-in data QC + alerts'],
+  },
+  {
+    num: '05',
+    title: 'Enterprise Cloud App Services',
+    desc:
+      'Production-grade web applications on Azure, AWS, or DigitalOcean — Node, Python, or your existing stack. CI/CD from GitHub, managed Postgres, secrets in a vault, structured logs you can actually query.',
+    points: ['Azure App Service & Functions', 'Postgres / Key Vault / Entra ID', 'GitHub → automated deploys'],
+  },
+  {
+    num: '06',
+    title: 'Custom AI Agents & Integrations',
+    desc:
+      'Multi-step agents that connect the systems you already pay for — Microsoft Graph, Dynamics, Slack, Salesforce, Notion, your data warehouse. Built with the same patterns that hold up in production today.',
+    points: ['Anthropic Agent SDK / tool-use', 'Microsoft Graph & Dataverse', 'Custom MCPs and webhooks'],
   },
 ];
 
@@ -54,7 +51,7 @@ const cardVariants = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+    transition: { delay: (i % 3) * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -63,138 +60,175 @@ export default function Services() {
     <section
       id="services"
       style={{
-        padding: '100px 0',
-        background: 'var(--bg-surface)',
+        padding: '140px 0',
+        background: 'var(--bg-soft)',
         position: 'relative',
-        overflow: 'hidden',
+        zIndex: 1,
       }}
     >
-      {/* Subtle dot texture */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: 'radial-gradient(rgba(0,212,255,0.04) 1px, transparent 1px)',
-        backgroundSize: '28px 28px',
-        pointerEvents: 'none',
-      }} />
-
       <div className="container" style={{ position: 'relative' }}>
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
+          style={{ marginBottom: '72px', maxWidth: '880px' }}
         >
-          <p style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            color: 'var(--accent-cyan)',
-            marginBottom: '12px',
-          }}>
-            {'// Services'}
+          <p className="section-eyebrow" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+            <span style={{ width: '24px', height: '1px', background: 'var(--accent)' }} />
+            What we build
           </p>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px, 4vw, 42px)',
-            fontWeight: 800,
-            letterSpacing: '-0.02em',
-            marginBottom: '16px',
-          }}>
-            What We Build
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 400,
+              fontSize: 'clamp(40px, 6vw, 84px)',
+              lineHeight: 0.98,
+              letterSpacing: '-0.02em',
+              color: 'var(--ink)',
+              marginBottom: '24px',
+            }}
+          >
+            Six things we do{' '}
+            <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+              exceptionally well
+            </em>
+            .
           </h2>
-          <div style={{
-            width: '48px',
-            height: '3px',
-            background: 'var(--accent-amber)',
-            marginBottom: '64px',
-            borderRadius: '2px',
-          }} />
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '18px',
+              lineHeight: 1.6,
+              color: 'var(--text-secondary)',
+              maxWidth: '620px',
+            }}
+          >
+            Every engagement starts as a real problem on someone's calendar — a Monday-morning
+            report, a stack of contracts, a brittle spreadsheet — and ends as a production
+            system in the hands of the people who needed it.
+          </p>
         </motion.div>
 
-        {/* Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '24px',
-        }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '1px',
+            background: 'var(--border)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+          }}
+        >
           {services.map((s, i) => (
-            <motion.div
-              key={s.title}
+            <motion.article
+              key={s.num}
               custom={i}
               variants={cardVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.15 }}
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '32px',
-                transition: 'border-color 0.25s, transform 0.25s, box-shadow 0.25s',
-                cursor: 'default',
+                background: 'var(--bg-elevated)',
+                padding: '36px 32px 32px',
+                display: 'flex',
+                flexDirection: 'column',
+                transition: 'background var(--transition)',
+                minHeight: '360px',
+                position: 'relative',
               }}
-              whileHover={{
-                y: -4,
-                borderColor: s.accent === 'var(--accent-cyan)'
-                  ? 'rgba(0,212,255,0.3)'
-                  : 'rgba(245,166,35,0.3)',
-                boxShadow: s.accent === 'var(--accent-cyan)'
-                  ? '0 12px 40px rgba(0,212,255,0.08)'
-                  : '0 12px 40px rgba(245,166,35,0.08)',
-              }}
+              whileHover={{ backgroundColor: 'var(--bg-paper)' }}
             >
-              {/* Icon */}
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '52px',
-                height: '52px',
-                background: s.accent === 'var(--accent-cyan)'
-                  ? 'rgba(0,212,255,0.08)'
-                  : 'rgba(245,166,35,0.08)',
-                borderRadius: '10px',
-                marginBottom: '20px',
-                color: s.accent,
-              }}>
-                {s.icon}
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'baseline',
+                  justifyContent: 'space-between',
+                  marginBottom: '22px',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    color: 'var(--accent)',
+                    letterSpacing: '0.15em',
+                  }}
+                >
+                  {s.num}
+                </span>
+                <span
+                  style={{
+                    width: '20px',
+                    height: '1px',
+                    background: 'var(--border-strong)',
+                  }}
+                />
               </div>
 
-              {/* Title */}
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '17px',
-                fontWeight: 700,
-                marginBottom: '10px',
-                letterSpacing: '-0.01em',
-                color: 'var(--text-primary)',
-              }}>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 400,
+                  fontSize: '26px',
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.015em',
+                  color: 'var(--ink)',
+                  marginBottom: '14px',
+                }}
+              >
                 {s.title}
               </h3>
 
-              {/* Description */}
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '14px',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.65,
-              }}>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '15px',
+                  color: 'var(--text-secondary)',
+                  lineHeight: 1.6,
+                  marginBottom: '24px',
+                }}
+              >
                 {s.desc}
               </p>
 
-              {/* Bottom accent line */}
-              <div style={{
-                marginTop: '24px',
-                height: '2px',
-                width: '32px',
-                background: s.accent,
-                borderRadius: '2px',
-                opacity: 0.6,
-              }} />
-            </motion.div>
+              <ul
+                style={{
+                  marginTop: 'auto',
+                  paddingTop: '20px',
+                  borderTop: '1px solid var(--border)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                }}
+              >
+                {s.points.map((p) => (
+                  <li
+                    key={p}
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '11px',
+                      letterSpacing: '0.04em',
+                      color: 'var(--text-muted)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: '4px',
+                        height: '4px',
+                        borderRadius: '50%',
+                        background: 'var(--accent)',
+                      }}
+                    />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </motion.article>
           ))}
         </div>
       </div>

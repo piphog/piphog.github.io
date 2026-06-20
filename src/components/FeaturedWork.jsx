@@ -1,21 +1,68 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const stats = [
-  { value: '99.35%', unit: 'CONTRACTS', label: 'AUTO-EXTRACTED — 1,075 / 1,082' },
-  { value: '250K+', unit: 'COMPOUNDS', label: 'CLUSTERED PER SCREENING RUN' },
-  { value: '5', unit: 'MODULES', label: 'SHIPPED TO PRODUCTION' },
-  { value: 'claude-sonnet-4-5', unit: '', label: 'MODEL POWERED' },
-];
-
 const techStack = [
-  'Node.js / Express',
-  'Azure App Service',
-  'Azure PostgreSQL',
-  'Microsoft Entra ID SSO',
-  'Anthropic Claude API',
-  'RDKit / Cheminformatics',
-  'Dynamics 365 + SharePoint',
+  {
+    label: 'Cloud & Infrastructure',
+    items: [
+      'Azure App Service (Linux)',
+      'Azure PostgreSQL Flexible Server',
+      'Azure Key Vault',
+      'Azure Front Door',
+      'GitHub Actions → Oryx CI/CD',
+    ],
+  },
+  {
+    label: 'Identity & Integration',
+    items: [
+      'Microsoft Entra ID SSO',
+      'Microsoft Graph API',
+      'Dynamics 365 Dataverse',
+      'SharePoint via Graph',
+      'Outlook send-on-behalf-of',
+    ],
+  },
+  {
+    label: 'AI & LLM Layer',
+    items: [
+      'Anthropic Claude API',
+      'Tool-use JSON schemas',
+      'Deterministic prompts (temp: 0)',
+      'Cluster validation + orphan recovery',
+      'Tone-matched draft generation',
+    ],
+  },
+  {
+    label: 'Backend & Data',
+    items: [
+      'Node.js 22 / Express',
+      'Python subprocesses for ML',
+      'JSONB analytic columns',
+      'Partial unique indexes',
+      'Soft-delete with audit trail',
+      'Pino structured logging',
+    ],
+  },
+  {
+    label: 'Frontend & Visualization',
+    items: [
+      'Vanilla JS (CSP-strict)',
+      'D3.js charts',
+      'Plotly 3D scenes',
+      'SheetJS in-browser Excel',
+      'Client-side SHA-256 dedup',
+    ],
+  },
+  {
+    label: 'Domain Engineering',
+    items: [
+      'RDKit cheminformatics',
+      'Morgan / ECFP fingerprints',
+      'Tanimoto similarity at scale',
+      'UMAP dimensionality reduction',
+      'python-pptx report generation',
+    ],
+  },
 ];
 
 const modules = [
@@ -26,9 +73,10 @@ const modules = [
     desc: (
       <>
         Claude-powered prospecting that builds a company intelligence brief from
-        scratch, ranks accounts by fit, and drafts outreach emails in a tone profile
-        learned from the team's own sent mail. Every draft routes through
-        Outlook (Microsoft Graph) for human approval before it ever leaves the building.
+        scratch, ranks accounts by fit, and drafts outreach emails in a tone
+        profile learned from the team's own sent mail. Every draft routes
+        through Outlook (Microsoft Graph) for human approval before it ever
+        leaves the building.
       </>
     ),
     images: [
@@ -43,11 +91,12 @@ const modules = [
       <>
         The technically deepest module. RDKit generates Morgan fingerprints for
         every compound; Claude clusters mass-spec hit lists into named scaffold
-        families with <strong style={{ color: 'var(--text-primary)' }}>temperature: 0</strong> determinism, then a
-        server-side validation pass drops hallucinated IDs and re-clusters orphaned
-        reals by Tanimoto neighbor. A 402K-compound fingerprint cache (~36MB
-        <code style={{ fontFamily: 'var(--font-mono)' }}>.npz</code>) loads in 2–5 seconds. 3D UMAP renders the
-        full chemical space in-browser via Plotly.
+        families with{' '}
+        <strong style={{ color: 'var(--ink)' }}>temperature: 0</strong>{' '}
+        determinism, then a server-side validation pass drops hallucinated IDs
+        and re-clusters orphaned reals by Tanimoto neighbor. A 402K-compound
+        fingerprint cache loads in 2 to 5 seconds. 3D UMAP renders the full
+        chemical space in-browser via Plotly.
       </>
     ),
     images: [
@@ -63,11 +112,12 @@ const modules = [
     desc: (
       <>
         Uploaded PDF/DOCX contracts are parsed by Claude into a unified schema —
-        counterparty, dates, terms, signatories, red-flag clauses — fuzzy-matched
-        to existing Dynamics 365 accounts, and auto-filed to the right SharePoint
-        folder via the Graph API. MSA/NDA status flows two-way between the
-        contracts table and Dynamics. <strong style={{ color: 'var(--text-primary)' }}>1,075 of 1,082</strong> historical
-        contracts were auto-extracted on the first production pass.
+        counterparty, dates, terms, signatories, red-flag clauses —
+        fuzzy-matched to existing Dynamics 365 accounts, and auto-filed to the
+        right SharePoint folder via the Graph API. MSA/NDA status flows two-way
+        between the contracts table and Dynamics.{' '}
+        <strong style={{ color: 'var(--ink)' }}>1,075 of 1,082</strong>{' '}
+        historical contracts were auto-extracted on the first production pass.
       </>
     ),
     images: [
@@ -82,12 +132,14 @@ const modules = [
     tagline: 'In-memory schema extension of a 1MB report template',
     desc: (
       <>
-        The Monthly Operating Review generator runs the parent company's own report
-        template inside a Node <code style={{ fontFamily: 'var(--font-mono)' }}>vm</code> sandbox, patches its
-        hard-coded 4-slot schema up to 7 service lines and 9 client-type buckets in
-        memory, and stamps the result back into a fresh populated copy — no fork,
-        no merge debt. A 39-tab workbook becomes a populated report in 5–10 seconds,
-        surfacing dozens of upstream QC issues along the way.
+        The Monthly Operating Review generator runs the parent company's own
+        report template inside a Node{' '}
+        <code style={{ fontFamily: 'var(--font-mono)', fontSize: '13px' }}>vm</code>{' '}
+        sandbox, patches its hard-coded 4-slot schema up to 7 service lines and
+        9 client-type buckets in memory, and stamps the result back into a
+        fresh populated copy — no fork, no merge debt. A 39-tab workbook
+        becomes a populated report in 5 to 10 seconds, surfacing dozens of
+        upstream QC issues along the way.
       </>
     ),
     images: [
@@ -100,7 +152,7 @@ export default function FeaturedWork() {
   const [activeModule, setActiveModule] = useState('chem');
   const [activeImage, setActiveImage] = useState(0);
 
-  const current = modules.find(m => m.id === activeModule);
+  const current = modules.find((m) => m.id === activeModule);
 
   const handleModuleChange = (id) => {
     setActiveModule(id);
@@ -111,227 +163,219 @@ export default function FeaturedWork() {
     <section
       id="work"
       style={{
-        padding: '120px 0',
+        padding: '140px 0',
         background: 'var(--bg-base)',
         position: 'relative',
-        overflow: 'hidden',
+        zIndex: 1,
       }}
     >
-      {/* Subtle scanline texture */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,212,255,0.012) 2px, rgba(0,212,255,0.012) 4px)',
-        pointerEvents: 'none',
-      }} />
-
       <div className="container" style={{ position: 'relative' }}>
-
-        {/* Client tag */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
-          style={{ marginBottom: '8px' }}
-        >
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.2em',
-            color: 'var(--text-muted)',
-            textTransform: 'uppercase',
-          }}>
-            CLIENT PROFILE — BIOTECH CRO // MASS-SPEC DRUG DISCOVERY, BOSTON AREA
-          </span>
-        </motion.div>
-
-        {/* Section label */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5, delay: 0.05 }}
           style={{ marginBottom: '12px' }}
         >
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            color: 'var(--accent-cyan)',
-          }}>
-            {'// Featured Work'}
-          </span>
+          <p className="section-eyebrow">
+            <span style={{ width: '24px', height: '1px', background: 'var(--accent)' }} />
+            Featured engagement
+          </p>
         </motion.div>
 
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.05 }}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px, 4.5vw, 50px)',
-            fontWeight: 800,
+            fontWeight: 400,
+            fontSize: 'clamp(40px, 6vw, 80px)',
+            lineHeight: 1.0,
             letterSpacing: '-0.02em',
-            marginBottom: '12px',
+            color: 'var(--ink)',
+            marginBottom: '24px',
+            maxWidth: '1000px',
           }}
         >
-          Enterprise AI Operations Platform
+          An enterprise AI operations platform —{' '}
+          <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+            zero to production in weeks.
+          </em>
         </motion.h2>
-        <div style={{
-          width: '48px',
-          height: '3px',
-          background: 'var(--accent-cyan)',
-          marginBottom: '32px',
-          borderRadius: '2px',
-        }} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          style={{
+            display: 'inline-block',
+            padding: '6px 12px',
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border)',
+            borderRadius: '999px',
+            marginBottom: '36px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '11px',
+            letterSpacing: '0.12em',
+            color: 'var(--text-muted)',
+            textTransform: 'uppercase',
+          }}
+        >
+          Client — Biotech CRO · Mass-spec drug discovery · Boston area
+        </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.15 }}
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '16px',
+            fontSize: '18px',
             color: 'var(--text-secondary)',
-            lineHeight: 1.8,
-            maxWidth: '760px',
-            marginBottom: '48px',
+            lineHeight: 1.65,
+            maxWidth: '820px',
+            marginBottom: '72px',
           }}
         >
-          A full operations platform built from zero to production in weeks for a
-          contract research organization running mass-spectrometry-based drug
-          discovery — now in daily use by ~25 staff across BD, Operations, Quality,
-          Finance, and Executive functions. Self-hosted on Azure with continuous
-          deployment, Entra ID single sign-on, and the Claude API wired into every
-          module below.
+          A full operations platform built from zero to production in weeks for
+          a contract research organization running mass-spectrometry-based drug
+          discovery — now in daily use by{' '}
+          <span style={{ color: 'var(--ink)', fontWeight: 500 }}>~250 staff</span>{' '}
+          (US &amp; Europe) across BD, Operations, Quality, Finance, Scientific
+          Research, and Executive functions. Self-hosted on Azure with
+          continuous deployment, Entra ID single sign-on, and the Claude API
+          wired into every module below.
         </motion.p>
 
-        {/* Stat bar */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
-            gap: '1px',
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: 'var(--radius-lg)',
-            overflow: 'hidden',
-            marginBottom: '56px',
-          }}
-        >
-          {stats.map(({ value, unit, label }) => (
-            <div
-              key={label}
-              style={{
-                padding: '24px 28px',
-                background: 'var(--bg-elevated)',
-                position: 'relative',
-              }}
-            >
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: value.length > 6 ? '14px' : '28px',
-                fontWeight: 600,
-                color: 'var(--accent-amber)',
-                lineHeight: 1,
-                marginBottom: '4px',
-                letterSpacing: value.length > 6 ? '0' : '-0.02em',
-              }}>{value}</div>
-              {unit && (
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '10px',
-                  color: 'var(--text-muted)',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  marginBottom: '2px',
-                }}>{unit}</div>
-              )}
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                color: 'var(--text-secondary)',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-              }}>{label}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Tech stack tags */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '64px' }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          style={{ marginBottom: '88px' }}
         >
-          {techStack.map(t => (
-            <span
-              key={t}
-              style={{
-                display: 'inline-block',
-                padding: '5px 12px',
-                background: 'rgba(0,212,255,0.06)',
-                border: '1px solid rgba(0,212,255,0.18)',
-                borderRadius: '4px',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '11px',
-                color: 'var(--accent-cyan)',
-                letterSpacing: '0.04em',
-              }}
-            >
-              {t}
-            </span>
-          ))}
+          <p
+            className="section-eyebrow"
+            style={{ marginBottom: '24px', color: 'var(--text-muted)' }}
+          >
+            <span style={{ width: '24px', height: '1px', background: 'var(--text-muted)' }} />
+            The stack
+          </p>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '1px',
+              background: 'var(--border)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--radius-lg)',
+              overflow: 'hidden',
+            }}
+          >
+            {techStack.map((group) => (
+              <div
+                key={group.label}
+                style={{
+                  background: 'var(--bg-elevated)',
+                  padding: '24px 24px 26px',
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '10px',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: 'var(--accent)',
+                    marginBottom: '14px',
+                    fontWeight: 500,
+                  }}
+                >
+                  {group.label}
+                </p>
+                <ul style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '14px',
+                        color: 'var(--text-secondary)',
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '10px',
+                        lineHeight: 1.45,
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: '4px',
+                          height: '4px',
+                          borderRadius: '50%',
+                          background: 'var(--text-muted)',
+                          flexShrink: 0,
+                          marginTop: '8px',
+                        }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Module switcher */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.7 }}
         >
-          {/* Tabs */}
+          <p
+            className="section-eyebrow"
+            style={{ marginBottom: '20px', color: 'var(--text-muted)' }}
+          >
+            <span style={{ width: '24px', height: '1px', background: 'var(--text-muted)' }} />
+            Modules — pick one
+          </p>
+
           <div
             className="module-tabs"
             style={{
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '8px',
-              marginBottom: '24px',
+              gap: '4px',
+              marginBottom: '36px',
               borderBottom: '1px solid var(--border)',
-              paddingBottom: '0',
             }}
           >
-            {modules.map(m => {
+            {modules.map((m) => {
               const isActive = m.id === activeModule;
               return (
                 <button
                   key={m.id}
                   onClick={() => handleModuleChange(m.id)}
                   style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '12px',
-                    letterSpacing: '0.08em',
-                    textTransform: 'uppercase',
-                    padding: '12px 18px',
-                    color: isActive ? 'var(--accent-cyan)' : 'var(--text-muted)',
-                    borderBottom: isActive ? '2px solid var(--accent-cyan)' : '2px solid transparent',
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '14px',
+                    fontWeight: isActive ? 500 : 400,
+                    padding: '14px 22px',
+                    color: isActive ? 'var(--ink)' : 'var(--text-muted)',
+                    borderBottom: isActive ? '2px solid var(--accent)' : '2px solid transparent',
                     marginBottom: '-1px',
                     transition: 'color 0.2s, border-color 0.2s',
                   }}
-                  onMouseEnter={e => { if (!isActive) e.currentTarget.style.color = 'var(--text-secondary)'; }}
-                  onMouseLeave={e => { if (!isActive) e.currentTarget.style.color = 'var(--text-muted)'; }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.color = 'var(--ink-soft)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.color = 'var(--text-muted)';
+                  }}
                 >
                   {m.label}
                 </button>
@@ -339,7 +383,6 @@ export default function FeaturedWork() {
             })}
           </div>
 
-          {/* Active module content */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeModule}
@@ -350,45 +393,55 @@ export default function FeaturedWork() {
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1.4fr',
-                gap: '40px',
+                gap: '48px',
                 alignItems: 'start',
               }}
               className="module-grid"
             >
-              {/* Left: description */}
               <div>
-                <p style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '11px',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  color: 'var(--accent-amber)',
-                  marginBottom: '10px',
-                }}>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '11px',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--accent)',
+                    marginBottom: '14px',
+                    fontWeight: 500,
+                  }}
+                >
                   {current.tagline}
                 </p>
-                <p style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '15px',
-                  color: 'var(--text-secondary)',
-                  lineHeight: 1.8,
-                }}>
+                <p
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '16px',
+                    color: 'var(--text-secondary)',
+                    lineHeight: 1.7,
+                  }}
+                >
                   {current.desc}
                 </p>
 
-                {/* Thumbnail selector for multi-image modules */}
                 {current.images.length > 1 && (
-                  <div style={{ display: 'flex', gap: '8px', marginTop: '24px', flexWrap: 'wrap' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '8px',
+                      marginTop: '28px',
+                      flexWrap: 'wrap',
+                    }}
+                  >
                     {current.images.map((img, i) => (
                       <button
                         key={img.src}
                         onClick={() => setActiveImage(i)}
                         style={{
-                          width: '12px',
-                          height: '12px',
+                          width: '10px',
+                          height: '10px',
                           borderRadius: '50%',
-                          border: `1px solid ${i === activeImage ? 'var(--accent-cyan)' : 'var(--border)'}`,
-                          background: i === activeImage ? 'var(--accent-cyan)' : 'transparent',
+                          border: '1px solid ' + (i === activeImage ? 'var(--accent)' : 'var(--border-strong)'),
+                          background: i === activeImage ? 'var(--accent)' : 'transparent',
                           transition: 'all 0.2s',
                         }}
                         aria-label={img.label}
@@ -398,46 +451,53 @@ export default function FeaturedWork() {
                 )}
               </div>
 
-              {/* Right: screenshot */}
               <div>
-                <div style={{
-                  position: 'relative',
-                  borderRadius: 'var(--radius-lg)',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border)',
-                  background: 'var(--bg-elevated)',
-                  boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
-                }}>
-                  {/* Fake browser chrome */}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '10px 14px',
-                    borderBottom: '1px solid var(--border)',
-                    background: 'var(--bg-surface)',
-                  }}>
-                    <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ff5f56' }} />
-                    <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#ffbd2e' }} />
-                    <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#27c93f' }} />
-                    <span style={{
-                      marginLeft: '12px',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '10px',
-                      color: 'var(--text-muted)',
-                      letterSpacing: '0.06em',
-                    }}>
+                <div
+                  style={{
+                    position: 'relative',
+                    borderRadius: 'var(--radius-lg)',
+                    overflow: 'hidden',
+                    border: '1px solid var(--border)',
+                    background: 'var(--bg-paper)',
+                    boxShadow:
+                      '0 30px 60px -20px rgba(28, 25, 22, 0.18), 0 12px 24px -10px rgba(28, 25, 22, 0.10)',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      padding: '12px 16px',
+                      borderBottom: '1px solid var(--border)',
+                      background: 'var(--bg-soft)',
+                    }}
+                  >
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#e5c5a3' }} />
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#d8b489' }} />
+                    <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#c8a071' }} />
+                    <span
+                      style={{
+                        marginLeft: '14px',
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '11px',
+                        color: 'var(--text-muted)',
+                        letterSpacing: '0.04em',
+                      }}
+                    >
                       {current.images[activeImage]?.label}
                     </span>
                   </div>
-                  <div style={{
-                    maxHeight: '480px',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    justifyContent: 'center',
-                    background: '#070b16',
-                  }}>
+                  <div
+                    style={{
+                      maxHeight: '520px',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      justifyContent: 'center',
+                      background: 'var(--bg-paper)',
+                    }}
+                  >
                     <AnimatePresence mode="wait">
                       <motion.img
                         key={current.images[activeImage]?.src}
@@ -460,13 +520,8 @@ export default function FeaturedWork() {
 
       <style>{`
         @media (max-width: 900px) {
-          .module-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .module-tabs button {
-            padding: 10px 12px !important;
-            font-size: 11px !important;
-          }
+          .module-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .module-tabs button { padding: 10px 14px !important; font-size: 13px !important; }
         }
       `}</style>
     </section>

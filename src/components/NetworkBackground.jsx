@@ -1,124 +1,131 @@
 import React, { useRef, useEffect } from 'react';
 
-// Lightweight animated node/circuit network — drifting particles connected
-// by thin lines when within range, plus occasional "signal pulses" that
-// travel along an active edge. Pure canvas, no deps.
+/**
+ * DotField — a calm grid of dots that subtly parallax toward the cursor,
+ * with a soft fall-off radius and a slow ambient drift. Cream-on-cream,
+ * tasteful and hand-crafted. Pure canvas, no deps. Renders fixed behind
+ * the whole document so every section gets the same field.
+ */
 export default function NetworkBackground() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    let width, height, dpr;
-    let nodes = [];
-    let pulses = [];
-    let rafId;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    let width = 0, height = 0, dpr = 1;
+    let dots = [];
+    let rafId = 0;
     let lastTime = 0;
+    let t = 0;
 
-    const CYAN = '0,212,255';
-    const AMBER = '245,166,35';
+    const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function resize() {
+    const GRID = 38;
+    const INFLUENCE = 220;
+    const PULL = 14;
+    const DOT_BASE = 1.05;
+    const DOT_HOVER = 2.4;
+    const INK = '28, 25, 22';
+
+    function build() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = canvas.clientWidth;
-      height = canvas.clientHeight;
+      width = window.innerWidth;
+      height = window.innerHeight;
       canvas.width = width * dpr;
       canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const area = width * height;
-      const count = Math.min(70, Math.max(28, Math.round(area / 18000)));
+      const cols = Math.ceil(width / GRID) + 2;
+      const rows = Math.ceil(height / GRID) + 2;
+      dots = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const offset = r % 2 === 0 ? 0 : GRID / 2;
+          dots.push({
+            ox: c * GRID + offset - GRID,
+            oy: r * GRID - GRID,
+            phase: Math.random() * Math.PI * 2,
+            freq: 0.0006 + Math.random() * 0.0004,
+            amp: 0.6 + Math.random() * 0.5,
+          });
+        }
+      }
+    }
 
-      nodes = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: (Math.random() - 0.5) * 0.18,
-        r: Math.random() * 1.6 + 0.6,
-      }));
-      pulses = [];
+    function onMouseMove(e) {
+      mouse.tx = e.clientX;
+      mouse.ty = e.clientY;
+      mouse.active = true;
+    }
+
+    function onMouseLeave() {
+      mouse.active = false;
+      mouse.tx = -9999;
+      mouse.ty = -9999;
     }
 
     function step(time) {
-      const dt = Math.min(time - lastTime, 50);
+      const dt = Math.min(time - lastTime || 16, 50);
       lastTime = time;
+      t += dt;
+
+      mouse.x += (mouse.tx - mouse.x) * 0.12;
+      mouse.y += (mouse.ty - mouse.y) * 0.12;
+
       ctx.clearRect(0, 0, width, height);
 
-      const maxDist = Math.min(width, height) * 0.16;
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
 
-      // update positions
-      for (const n of nodes) {
-        if (!prefersReducedMotion) {
-          n.x += n.vx * (dt / 16);
-          n.y += n.vy * (dt / 16);
-        }
-        if (n.x < 0 || n.x > width) n.vx *= -1;
-        if (n.y < 0 || n.y > height) n.vy *= -1;
-        n.x = Math.max(0, Math.min(width, n.x));
-        n.y = Math.max(0, Math.min(height, n.y));
-      }
+        const driftX = prefersReducedMotion ? 0 : Math.cos(t * d.freq + d.phase) * d.amp;
+        const driftY = prefersReducedMotion ? 0 : Math.sin(t * d.freq * 1.3 + d.phase) * d.amp;
 
-      // draw edges
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
+        let x = d.ox + driftX;
+        let y = d.oy + driftY;
+        let r = DOT_BASE;
+        let alpha = 0.20;
+
+        if (mouse.active) {
+          const dx = mouse.x - x;
+          const dy = mouse.y - y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * 0.16;
-            ctx.strokeStyle = `rgba(${CYAN},${alpha})`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
 
-            // occasionally spawn a pulse traveling along this edge
-            if (!prefersReducedMotion && Math.random() < 0.0006) {
-              pulses.push({ a, b, t: 0, color: Math.random() < 0.5 ? CYAN : AMBER });
-            }
+          if (dist < INFLUENCE) {
+            const k = 1 - dist / INFLUENCE;
+            const easeK = k * k * (3 - 2 * k);
+            x += (dx / Math.max(dist, 1)) * PULL * easeK;
+            y += (dy / Math.max(dist, 1)) * PULL * easeK;
+            r = DOT_BASE + (DOT_HOVER - DOT_BASE) * easeK;
+            alpha = 0.20 + 0.55 * easeK;
           }
         }
-      }
 
-      // draw + advance pulses
-      pulses = pulses.filter((p) => p.t < 1);
-      for (const p of pulses) {
-        const x = p.a.x + (p.b.x - p.a.x) * p.t;
-        const y = p.a.y + (p.b.y - p.a.y) * p.t;
-        const fade = Math.sin(p.t * Math.PI); // 0 -> 1 -> 0
         ctx.beginPath();
-        ctx.arc(x, y, 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color},${0.9 * fade})`;
-        ctx.shadowColor = `rgba(${p.color},${fade})`;
-        ctx.shadowBlur = 6;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        p.t += 0.012 * (dt / 16);
-      }
-
-      // draw nodes
-      for (const n of nodes) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${CYAN},0.35)`;
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(' + INK + ', ' + alpha + ')';
         ctx.fill();
       }
 
       rafId = requestAnimationFrame(step);
     }
 
-    resize();
+    build();
     rafId = requestAnimationFrame(step);
 
-    const ro = new ResizeObserver(resize);
-    ro.observe(canvas);
+    window.addEventListener('resize', build);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('mouseleave', onMouseLeave);
 
     return () => {
       cancelAnimationFrame(rafId);
-      ro.disconnect();
+      window.removeEventListener('resize', build);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseleave', onMouseLeave);
     };
   }, []);
 
@@ -127,12 +134,13 @@ export default function NetworkBackground() {
       ref={canvasRef}
       aria-hidden="true"
       style={{
-        position: 'absolute',
+        position: 'fixed',
         inset: 0,
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
-        opacity: 0.85,
+        zIndex: 0,
+        opacity: 1,
       }}
     />
   );

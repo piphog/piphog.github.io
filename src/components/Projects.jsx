@@ -3,28 +3,25 @@ import { motion } from 'framer-motion';
 
 const projects = [
   {
-    tag: 'PERSONAL PROJECT // Live Trading System',
-    title: 'Kalshi Algorithmic Trading System',
-    stats: ['86.7% win rate', '986+ paper trades', 'Live since May 2025'],
-    stack: ['FastAPI', 'Python', 'RSA-PSS API', 'HTML Dashboard'],
-    desc: 'A two-asset live trading system for Kalshi 15-minute crypto binary options. FastAPI backend (~8,700 lines) scanning BTC, ETH, SOL, and XRP every 10 seconds. Automated position management, stop-loss state machine, and Discord alerts. Single-file HTML dashboard with live scanner status, trade analytics, and config.',
-    accent: 'var(--accent-amber)',
+    tag: 'Live trading system',
+    title: 'Kalshi algorithmic trading platform',
+    desc:
+      'A two-asset live trading system on Kalshi 15-minute binary options. FastAPI backend (~8,700 lines) scanning four crypto markets every ten seconds, automated position management, a stop-loss state machine, and Discord alerts. Single-file HTML dashboard for live scanner status, trade analytics, and config.',
+    stack: ['FastAPI', 'Python', 'RSA-PSS auth', 'Discord webhooks', 'HTML dashboard'],
   },
   {
-    tag: 'PERSONAL PROJECT // AI SaaS Platform',
-    title: 'HiredIQ.ai',
-    stats: [],
-    stack: ['GPT-4o', 'DigitalOcean', 'React'],
-    desc: 'AI-powered talent assessment platform. Deployed on DigitalOcean with GPT-4o as the evaluation engine.',
-    accent: 'var(--accent-cyan)',
+    tag: 'AI SaaS platform',
+    title: 'HiredIQ.ai — talent assessment',
+    desc:
+      'AI-powered candidate evaluation platform. Deployed on DigitalOcean with GPT-4o as the evaluation engine, a React frontend, and a queue-based job runner for batch assessments.',
+    stack: ['GPT-4o', 'React', 'DigitalOcean', 'Queue workers'],
   },
   {
-    tag: 'PERSONAL PROJECT // AI Agent',
-    title: 'Automated Job Search Pipeline',
-    stats: [],
-    stack: ['Claude Agent SDK', 'Playwright', 'Discord'],
-    desc: 'Automated job search pipeline using Claude\'s Agent SDK. Discord-based human-in-the-loop review with Playwright ATS automation.',
-    accent: 'var(--accent-amber)',
+    tag: 'Agentic workflow',
+    title: 'Automated job-search pipeline',
+    desc:
+      'A multi-step agent built on the Claude Agent SDK that scans listings, ranks fits, and queues applications for human-in-the-loop approval via Discord — with Playwright handling the ATS automation on the back end.',
+    stack: ['Claude Agent SDK', 'Playwright', 'Discord HIL'],
   },
 ];
 
@@ -33,7 +30,7 @@ const cardVariants = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }
+    transition: { delay: i * 0.08, duration: 0.55, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -42,55 +39,66 @@ export default function ProjectsSection() {
     <section
       id="projects"
       style={{
-        padding: '100px 0',
-        background: 'var(--bg-surface)',
+        padding: '140px 0',
+        background: 'var(--bg-base)',
         position: 'relative',
+        zIndex: 1,
       }}
     >
       <div className="container">
-        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
+          style={{ marginBottom: '64px', maxWidth: '780px' }}
         >
-          <p style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            color: 'var(--accent-amber)',
-            marginBottom: '12px',
-          }}>
-            // Other Projects
+          <p className="section-eyebrow">
+            <span style={{ width: '24px', height: '1px', background: 'var(--accent)' }} />
+            Other things built
           </p>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(26px, 4vw, 40px)',
-            fontWeight: 800,
-            letterSpacing: '-0.02em',
-            marginBottom: '16px',
-          }}>
-            Personal Systems
+          <h2
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 400,
+              fontSize: 'clamp(36px, 5.5vw, 72px)',
+              lineHeight: 1,
+              letterSpacing: '-0.02em',
+              color: 'var(--ink)',
+              marginBottom: '20px',
+            }}
+          >
+            Personal systems —{' '}
+            <em style={{ fontStyle: 'italic', color: 'var(--accent)' }}>
+              shipped solo, in production.
+            </em>
           </h2>
-          <div style={{
-            width: '48px',
-            height: '3px',
-            background: 'var(--accent-amber)',
-            marginBottom: '56px',
-            borderRadius: '2px',
-          }} />
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '17px',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.6,
+            }}
+          >
+            Side projects that put the same patterns through their paces before
+            they ever touch a client engagement.
+          </p>
         </motion.div>
 
-        {/* Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '24px',
-        }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '1px',
+            background: 'var(--border)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--radius-lg)',
+            overflow: 'hidden',
+          }}
+        >
           {projects.map((p, i) => (
-            <motion.div
+            <motion.article
               key={p.title}
               custom={i}
               variants={cardVariants}
@@ -98,127 +106,84 @@ export default function ProjectsSection() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.15 }}
               style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--radius-lg)',
-                padding: '28px',
+                background: 'var(--bg-elevated)',
+                padding: '32px 30px 30px',
                 display: 'flex',
                 flexDirection: 'column',
-                transition: 'border-color 0.25s',
-                position: 'relative',
-                overflow: 'hidden',
+                transition: 'background var(--transition)',
+                minHeight: '340px',
               }}
-              whileHover={{
-                y: -4,
-                borderColor: p.accent === 'var(--accent-amber)'
-                  ? 'rgba(245,166,35,0.3)'
-                  : 'rgba(0,212,255,0.3)',
-                boxShadow: p.accent === 'var(--accent-amber)'
-                  ? '0 12px 40px rgba(245,166,35,0.07)'
-                  : '0 12px 40px rgba(0,212,255,0.07)',
-              }}
+              whileHover={{ backgroundColor: 'var(--bg-paper)' }}
             >
-              {/* Top accent line */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '2px',
-                background: p.accent,
-                opacity: 0.5,
-              }} />
-
-              {/* Tag */}
-              <p style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '10px',
-                letterSpacing: '0.15em',
-                color: 'var(--text-muted)',
-                textTransform: 'uppercase',
-                marginBottom: '12px',
-              }}>
+              <p
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  color: 'var(--accent)',
+                  marginBottom: '16px',
+                  fontWeight: 500,
+                }}
+              >
                 {p.tag}
               </p>
 
-              {/* Title */}
-              <h3 style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '19px',
-                fontWeight: 700,
-                letterSpacing: '-0.01em',
-                marginBottom: '14px',
-                color: 'var(--text-primary)',
-              }}>
+              <h3
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '24px',
+                  fontWeight: 400,
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.015em',
+                  color: 'var(--ink)',
+                  marginBottom: '16px',
+                }}
+              >
                 {p.title}
               </h3>
 
-              {/* Stats */}
-              {p.stats.length > 0 && (
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '6px',
-                  marginBottom: '14px',
-                }}>
-                  {p.stats.map(s => (
-                    <span
-                      key={s}
-                      style={{
-                        padding: '3px 10px',
-                        background: 'rgba(0,230,118,0.08)',
-                        border: '1px solid rgba(0,230,118,0.2)',
-                        borderRadius: '4px',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '10px',
-                        color: 'var(--accent-green)',
-                        letterSpacing: '0.03em',
-                      }}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Description */}
-              <p style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '14px',
-                color: 'var(--text-secondary)',
-                lineHeight: 1.7,
-                marginBottom: '20px',
-                flex: 1,
-              }}>
+              <p
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '15px',
+                  color: 'var(--text-secondary)',
+                  lineHeight: 1.6,
+                  marginBottom: '22px',
+                  flex: 1,
+                }}
+              >
                 {p.desc}
               </p>
 
-              {/* Stack tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                {p.stack.map(t => (
+              <div
+                style={{
+                  paddingTop: '18px',
+                  borderTop: '1px solid var(--border)',
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '6px',
+                }}
+              >
+                {p.stack.map((t) => (
                   <span
                     key={t}
                     style={{
-                      display: 'inline-block',
-                      padding: '3px 10px',
-                      background: p.accent === 'var(--accent-amber)'
-                        ? 'rgba(245,166,35,0.07)'
-                        : 'rgba(0,212,255,0.07)',
-                      border: `1px solid ${p.accent === 'var(--accent-amber)'
-                        ? 'rgba(245,166,35,0.2)'
-                        : 'rgba(0,212,255,0.2)'}`,
-                      borderRadius: '4px',
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '10px',
-                      color: p.accent,
-                      letterSpacing: '0.04em',
+                      fontSize: '11px',
+                      color: 'var(--text-muted)',
+                      padding: '3px 8px',
+                      background: 'transparent',
+                      border: '1px solid var(--border)',
+                      borderRadius: '4px',
+                      letterSpacing: '0.02em',
                     }}
                   >
                     {t}
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
       </div>
