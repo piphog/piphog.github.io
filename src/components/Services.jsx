@@ -27,8 +27,8 @@ const services = [
     num: '04',
     title: 'Data Pipelines & Reporting',
     desc:
-      "Operational, scientific, or financial — recurring reports stop being someone's Monday morning. Automated aggregation, dedup, QC, and delivery into PowerPoint, Excel, PDF, or a live dashboard.",
-    points: ['Recurring report generation', 'Excel / PPTX / PDF output', 'Built-in data QC + alerts'],
+      "Operational, scientific, or financial — recurring reports stop being someone's Monday morning. Automated aggregation, dedup, QC, and delivery into PowerPoint, Excel, PDF, HTML, or a live dashboard.",
+    points: ['Recurring report generation', 'Excel / PPTX / PDF / HTML output', 'Built-in data QC + alerts'],
   },
   {
     num: '05',

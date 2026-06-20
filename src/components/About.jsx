@@ -86,11 +86,11 @@ export default function About() {
                 marginBottom: '20px',
               }}
             >
-              I'm Drew Hogan — founder of{' '}
+              I'm Andrew Hogan — founder of{' '}
               <span style={{ color: 'var(--ink)', fontWeight: 500 }}>Cyclona LLC</span>,
-              a one-person studio in Raleigh-Durham, NC. Self-taught,
-              production-focused, and obsessed with the kind of internal
-              software that quietly makes a team's whole week easier.
+              a one-person studio in Raleigh-Durham, NC. Production-focused,
+              and obsessed with the kind of internal software that makes a
+              team's whole week easier.
             </p>
 
             <p
@@ -103,8 +103,8 @@ export default function About() {
               }}
             >
               I currently lead the build of an enterprise AI operations
-              platform for an East-coast contract research organization —
-              shipping new modules to ~250 staff across the US and Europe — and
+              platform for an East-coast contract research organization,
+              shipping new modules to ~250 staff across the US and Europe.
               I'm taking on a small number of additional engagements in
               parallel.
             </p>
