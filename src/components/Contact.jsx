@@ -66,7 +66,10 @@ export default function Contact() {
             }}
           >
             <a
-              href="https://calendly.com/cyclona"
+              href="https://cal.com/cyclona/intro-call-30-min"
+              data-cal-namespace="intro-call-30-min"
+              data-cal-link="cyclona/intro-call-30-min"
+              data-cal-config='{"layout":"month_view"}'
               target="_blank"
               rel="noopener noreferrer"
               style={{
