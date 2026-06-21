@@ -70,8 +70,7 @@ export default function Contact() {
               data-cal-namespace="intro-call-30-min"
               data-cal-link="cyclona/intro-call-30-min"
               data-cal-config='{"layout":"month_view"}'
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={(e) => e.preventDefault()}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -85,6 +84,7 @@ export default function Contact() {
                 borderRadius: '999px',
                 border: '1px solid var(--ink)',
                 transition: 'all 0.25s',
+                cursor: 'pointer',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = 'var(--accent)';

@@ -109,8 +109,7 @@ export default function Navbar() {
                 data-cal-namespace="intro-call-30-min"
                 data-cal-link="cyclona/intro-call-30-min"
                 data-cal-config='{"layout":"month_view"}'
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={(e) => e.preventDefault()}
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '13px',
@@ -218,8 +217,7 @@ export default function Navbar() {
                   data-cal-namespace="intro-call-30-min"
                   data-cal-link="cyclona/intro-call-30-min"
                   data-cal-config='{"layout":"month_view"}'
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => { e.preventDefault(); setMenuOpen(false); }}
                   style={{
                     display: 'inline-block',
                     fontFamily: 'var(--font-body)',

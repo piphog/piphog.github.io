@@ -194,8 +194,7 @@ export default function Hero() {
             data-cal-namespace="intro-call-30-min"
             data-cal-link="cyclona/intro-call-30-min"
             data-cal-config='{"layout":"month_view"}'
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={(e) => e.preventDefault()}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -210,6 +209,7 @@ export default function Hero() {
               border: '1px solid var(--border-strong)',
               borderRadius: '999px',
               transition: 'all 0.25s ease',
+              cursor: 'pointer',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.borderColor = 'var(--ink)';
